@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-
 	"starrequest/config"
+
+	"starrequest/pkg/parser"
 
 	charmLog "github.com/charmbracelet/log"
 )
@@ -24,5 +25,14 @@ func init() {
 }
 
 func main() {
-	log.Info("Hello, world!")
+	// create a parser
+	parser := parser.NewParser(log)
+
+	// parse the file
+	req, err := parser.Parse("./examples/ex1.sr.yaml")
+	if err != nil {
+		log.Error("Failed to parse yaml", "error", err)
+	}
+
+	fmt.Println(req)
 }
